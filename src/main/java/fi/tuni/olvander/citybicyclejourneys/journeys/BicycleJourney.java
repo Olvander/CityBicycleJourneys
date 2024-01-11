@@ -38,4 +38,60 @@ public class BicycleJourney {
         this.coveredDistance = coveredDistance;
         this.journeyDuration = journeyDuration;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDateTime departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalDateTime getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDateTime returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public String getDepartureStationId() {
+        return departureStationId;
+    }
+
+    public void setDepartureStationId(String departureStationId) {
+        this.departureStationId = departureStationId;
+    }
+
+    public String getReturnStationId() {
+        return returnStationId;
+    }
+
+    public void setReturnStationId(String returnStationId) {
+        this.returnStationId = returnStationId;
+    }
+
+    public double getCoveredDistance() {
+        return coveredDistance;
+    }
+
+    public void setCoveredDistance(double coveredDistance) {
+        this.coveredDistance = coveredDistance;
+    }
+
+    public int getJourneyDuration() {
+        return journeyDuration;
+    }
+
+    public void setJourneyDuration(int journeyDuration) {
+        this.journeyDuration = journeyDuration;
+    }
 }
