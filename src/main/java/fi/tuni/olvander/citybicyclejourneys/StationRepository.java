@@ -1,2 +1,4 @@
-package fi.tuni.olvander.citybicyclejourneys;public interface StationRepository {
+package fi.tuni.olvander.citybicyclejourneys;
+
+public interface StationRepository {
 }
