@@ -7,4 +7,16 @@ public class Station {
     private String address;
     private double x;
     private double y;
+
+    public Station() {}
+
+    public Station(String stationId, String name, String address, double x,
+                   double y) {
+
+        this.stationId = stationId;
+        this.name = name;
+        this.address = address;
+        this.x = x;
+        this.y = y;
+    }
 }
