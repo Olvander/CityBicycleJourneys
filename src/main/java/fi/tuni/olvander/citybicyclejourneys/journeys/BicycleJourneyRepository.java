@@ -1,4 +1,7 @@
 package fi.tuni.olvander.citybicyclejourneys.journeys;
 
-public interface BicycleJourneyRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface BicycleJourneyRepository extends CrudRepository
+        <BicycleJourney, Long> {
 }
