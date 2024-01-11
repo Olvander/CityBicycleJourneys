@@ -1,4 +1,6 @@
 package fi.tuni.olvander.citybicyclejourneys.stations;
 
-public interface StationRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface StationRepository extends CrudRepository<Station, Integer> {
 }
