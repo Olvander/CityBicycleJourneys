@@ -46,4 +46,21 @@ public class CityBicycleJourneys {
 		}
 	}
 
+	public synchronized void importJourneysFrom(String file) {
+
+		try {
+			ResultSet rs = new Csv().read(file, null, null);
+
+			if (rs != null) {
+
+				while (rs.next()) {
+
+				}
+			}
+			rs.close();
+		} catch (Exception e) {
+			logger.info("Could not read file, please check the file name");
+		}
+	}
+
 }
