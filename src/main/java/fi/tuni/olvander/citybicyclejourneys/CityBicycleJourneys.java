@@ -12,7 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -111,5 +113,19 @@ public class CityBicycleJourneys {
 
 	public synchronized void importBicycleStation(Station station) {
 		this.stationDb.save(station);
+	}
+
+	public synchronized LocalDateTime getLocalDateTime(String dateTime) {
+		String date = dateTime.substring(0, 10);
+		String time = "00:00";
+
+		if (dateTime.contains("T")) {
+			time = dateTime.substring(11);
+		}
+		LocalDateTime dt = LocalDateTime.of(
+				LocalDate.parse(date),
+				LocalTime.parse(time));
+
+		return dt;
 	}
 }
