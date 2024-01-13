@@ -36,6 +36,14 @@ public class CityBicycleJourneys implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		String stationsFile = "./csv/"
+				+ "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv";
+
+		if (stationDb.count() == 0) {
+			importStationsFrom(stationsFile);
+			logger.info("");
+			logger.info("Stations imported to db");
+		}
 	}
 
 
