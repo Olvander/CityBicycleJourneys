@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.h2.tools.Csv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,7 +19,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 @SpringBootApplication
-public class CityBicycleJourneys {
+public class CityBicycleJourneys implements CommandLineRunner {
 
     @Autowired
 	StationRepository stationDb;
@@ -30,6 +31,11 @@ public class CityBicycleJourneys {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CityBicycleJourneys.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+
 	}
 
 
