@@ -67,4 +67,7 @@ public class CityBicycleJourneys {
 		this.bicycleJourneyDb.save(journey);
 	}
 
+	public synchronized void importBicycleStation(Station station) {
+		this.stationDb.save(station);
+	}
 }
