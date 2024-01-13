@@ -39,7 +39,9 @@ public class CityBicycleJourneys {
 			if (rs != null) {
 
 				while (rs.next()) {
+					Optional<Station> station = getStationData(rs);
 
+					station.ifPresent(this::importBicycleStation);
 				}
 			}
 		} catch (Exception e) {
@@ -73,7 +75,19 @@ public class CityBicycleJourneys {
 
 		Optional<BicycleJourney> bicycleJourney = Optional.empty();
 
+		try {
+			double distance = rs.getDouble(7);
+			int duration = rs.getInt(8);
 
+			if (distance >= 10 && duration >= 10) {
+
+				
+			}
+		} catch (Exception e) {
+			logger.error("Could not get all values");
+			logger.error("Please check column numbers in the CSV file(s)");
+
+		}
 
 		return bicycleJourney;
 	}
