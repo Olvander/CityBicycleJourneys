@@ -12,6 +12,9 @@ public class CityBicycleJourneys {
     @Autowired
 	StationRepository stationDb;
 
+	@Autowired
+	BicycleJourneyRepository bicycleJourneyDb;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CityBicycleJourneys.class, args);
 	}
