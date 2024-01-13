@@ -90,7 +90,6 @@ public class CityBicycleJourneys {
 				LocalDateTime returnDate = getLocalDateTime(returnDateTime);
 				String departureStationId = rs.getString(3);
 				String returnStationId = rs.getString(5);
-
 				BicycleJourney journey = new BicycleJourney(departureDate,
 						returnDate, departureStationId, returnStationId,
 						distance, duration);
