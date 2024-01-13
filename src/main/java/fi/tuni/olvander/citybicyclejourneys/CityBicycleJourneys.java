@@ -63,4 +63,8 @@ public class CityBicycleJourneys {
 		}
 	}
 
+	public synchronized void importBicycleJourney(BicycleJourney journey) {
+		this.bicycleJourneyDb.save(journey);
+	}
+
 }
