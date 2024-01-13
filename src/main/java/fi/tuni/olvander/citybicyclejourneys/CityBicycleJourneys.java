@@ -55,7 +55,9 @@ public class CityBicycleJourneys {
 			if (rs != null) {
 
 				while (rs.next()) {
+					Optional<BicycleJourney> journey = getBicycleJourneyData(rs);
 
+					journey.ifPresent(this::importBicycleJourney);
 				}
 			}
 			rs.close();
@@ -76,6 +78,8 @@ public class CityBicycleJourneys {
 			ResultSet rs) throws Exception {
 
 		Optional<BicycleJourney> bicycleJourney = Optional.empty();
+
+
 
 		return bicycleJourney;
 	}
