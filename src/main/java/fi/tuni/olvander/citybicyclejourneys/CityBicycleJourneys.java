@@ -108,6 +108,23 @@ public class CityBicycleJourneys {
 
 		Optional<Station> stationData = Optional.empty();
 
+		try {
+			String stationID = rs.getString(2);
+			String stationName = rs.getString(3);
+
+			String stationAddress = rs.getString(6);
+			double stationX = rs.getDouble(12);
+			double stationY = rs.getDouble(13);
+
+			Station bicycleStation = new Station(stationID, stationName,
+					stationAddress, stationX, stationY);
+			stationData = Optional.of(bicycleStation);
+
+		} catch (Exception e) {
+			logger.error("Could not get data from CSV file");
+			logger.error("Please check the column numbers and the CSV data");
+		}
+
 		return stationData;
 	}
 
