@@ -38,11 +38,31 @@ public class CityBicycleJourneys implements CommandLineRunner {
 
 		String stationsFile = "./csv/"
 				+ "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv";
+		
+		String rs05File = "./csv/2021-05.csv";
+		String rs06File = "./csv/2021-06.csv";
+		String rs07File = "./csv/2021-07.csv";
 
 		if (stationDb.count() == 0) {
 			importStationsFrom(stationsFile);
 			logger.info("");
 			logger.info("Stations imported to db");
+		}
+
+		if (bicycleJourneyDb.count() == 0) {
+			logger.info("");
+			logger.info("Please wait about 3 - 10 minutes until all");
+			logger.info("3 bicycle journey datasets have been imported to db");
+			logger.info("");
+
+			importJourneysFrom(rs05File);
+			logger.info("The first dataset (2021-05) has been imported to db");
+			importJourneysFrom(rs06File);
+			logger.info("The second dataset (2021-06) has been imported to db");
+			importJourneysFrom(rs07File);
+			logger.info("The third dataset (2021-07) has been imported to db");
+			logger.info("");
+			logger.info("All Bicycle Journey datasets have been imported!");
 		}
 	}
 
