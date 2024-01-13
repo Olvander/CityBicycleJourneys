@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -69,5 +70,13 @@ public class CityBicycleJourneys {
 
 	public synchronized void importBicycleStation(Station station) {
 		this.stationDb.save(station);
+	}
+
+	public synchronized Optional<BicycleJourney> getBicycleJourneyData(
+			ResultSet rs) throws Exception {
+
+		Optional<BicycleJourney> bicycleJourney = Optional.empty();
+
+		return bicycleJourney;
 	}
 }
