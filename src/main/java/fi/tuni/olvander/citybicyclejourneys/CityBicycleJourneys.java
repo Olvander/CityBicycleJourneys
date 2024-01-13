@@ -112,6 +112,11 @@ public class CityBicycleJourneys {
 			String stationID = rs.getString(2);
 			String stationName = rs.getString(3);
 
+			if (stationName.contains(",")) {
+				stationName = stationName.substring(0,
+						stationName.indexOf(","));
+			}
+
 			String stationAddress = rs.getString(6);
 			double stationX = rs.getDouble(12);
 			double stationY = rs.getDouble(13);
