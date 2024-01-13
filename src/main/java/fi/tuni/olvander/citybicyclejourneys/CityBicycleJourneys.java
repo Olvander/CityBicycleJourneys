@@ -81,7 +81,12 @@ public class CityBicycleJourneys {
 
 			if (distance >= 10 && duration >= 10) {
 
-				
+				String departureDateTime = rs.getString(1);
+
+				String returnDateTime = rs.getString(2);
+
+				String departureStationId = rs.getString(3);
+				String returnStationId = rs.getString(5);
 			}
 		} catch (Exception e) {
 			logger.error("Could not get all values");
