@@ -66,13 +66,7 @@ public class CityBicycleJourneys {
 		}
 	}
 
-	public synchronized void importBicycleJourney(BicycleJourney journey) {
-		this.bicycleJourneyDb.save(journey);
-	}
 
-	public synchronized void importBicycleStation(Station station) {
-		this.stationDb.save(station);
-	}
 
 	public synchronized Optional<BicycleJourney> getBicycleJourneyData(
 			ResultSet rs) throws Exception {
@@ -82,5 +76,21 @@ public class CityBicycleJourneys {
 
 
 		return bicycleJourney;
+	}
+
+	public synchronized Optional<Station> getStationData(ResultSet rs) throws
+			Exception {
+
+		Optional<Station> stationData = Optional.empty();
+
+		return stationData;
+	}
+
+	public synchronized void importBicycleJourney(BicycleJourney journey) {
+		this.bicycleJourneyDb.save(journey);
+	}
+
+	public synchronized void importBicycleStation(Station station) {
+		this.stationDb.save(station);
 	}
 }
