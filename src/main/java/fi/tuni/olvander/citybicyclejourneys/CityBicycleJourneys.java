@@ -84,16 +84,21 @@ public class CityBicycleJourneys {
 			if (distance >= 10 && duration >= 10) {
 
 				String departureDateTime = rs.getString(1);
-
+				LocalDateTime departureDate = getLocalDateTime(
+						departureDateTime);
 				String returnDateTime = rs.getString(2);
-
+				LocalDateTime returnDate = getLocalDateTime(returnDateTime);
 				String departureStationId = rs.getString(3);
 				String returnStationId = rs.getString(5);
+
+				BicycleJourney journey = new BicycleJourney(departureDate,
+						returnDate, departureStationId, returnStationId,
+						distance, duration);
+				bicycleJourney = Optional.of(journey);
 			}
 		} catch (Exception e) {
 			logger.error("Could not get all values");
 			logger.error("Please check column numbers in the CSV file(s)");
-
 		}
 
 		return bicycleJourney;
