@@ -147,6 +147,17 @@ public class StationController {
         return noOfJourneys[0];
     }
 
+    public double getAverageJourneyDistanceFromDb(String sql) {
+        double[] avgDistance = new double[1];
+
+        jdbcTemplate.query(sql, resultSet -> {
+            avgDistance[0] = resultSet.getDouble(1);
+        });
+
+        return avgDistance[0];
+    }
+
+
     public int getNumberOfJourneysEndingAtStation(String stationId,
                                                   int[] selectedMonths) {
 
