@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class StationController {
@@ -237,6 +238,17 @@ public class StationController {
 
         return avgDistance[0];
     }
+
+    public ArrayList<Station> getMostPopularStations(String sql) {
+        ArrayList<Station> mostPopularStations = new ArrayList<>();
+
+        jdbcTemplate.query(sql,
+                resultSet -> {
+                });
+
+        return mostPopularStations;
+    }
+
 
     public int getNumberOfJourneysStartingFromStation(String stationId,
             int[] selectedMonths) {
