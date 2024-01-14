@@ -84,7 +84,8 @@ public class StationController {
             if (optionalStation.isPresent()) {
                 Station station = optionalStation.get();
                 String stationId = station.getStationId();
-                noOfJourneys = 0;
+                noOfJourneys = getNumberOfJourneysStartingFromStation(stationId,
+                        selectedMonths);
             } else {
                 throw new StationNotFoundException(idAsInt);
             }
