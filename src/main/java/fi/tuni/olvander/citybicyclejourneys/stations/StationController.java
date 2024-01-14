@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -63,5 +64,34 @@ public class StationController {
         }
 
         return stationEntity;
+    }
+
+    @RequestMapping(value = "api/stations/{id}/totalJourneysFrom/",
+            method = RequestMethod.GET) public ResponseEntity<Integer>
+            getTotalJourneysStartingFromStation(@PathVariable String id,
+            @RequestParam int[] selectedMonths) throws Exception {
+
+        int noOfJourneys;
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setAccessControlAllowOrigin("*");
+
+        try {
+            int idAsInt = Integer.parseInt(id);
+            Optional<Station> optionalStation = this.stationDb
+                    .findById(idAsInt);
+
+            if (optionalStation.isPresent()) {
+                Station station = optionalStation.get();
+                String stationId = station.getStationId();
+                noOfJourneys = 0;
+            } else {
+                throw new StationNotFoundException(idAsInt);
+            }
+        } catch (NumberFormatException e) {
+            throw new IdNotANumberException(id);
+        }
+
+        return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
     }
 }
