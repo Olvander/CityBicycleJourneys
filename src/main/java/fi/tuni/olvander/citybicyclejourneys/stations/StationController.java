@@ -1,5 +1,7 @@
 package fi.tuni.olvander.citybicyclejourneys.stations;
 
+import fi.tuni.olvander.citybicyclejourneys.exceptions.IdNotANumberException;
+import fi.tuni.olvander.citybicyclejourneys.exceptions.StationNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,10 +56,10 @@ public class StationController {
                 stationEntity = new ResponseEntity<>(station, headers,
                         HttpStatus.OK);
             } else {
-                throw new Exception(id);
+                throw new StationNotFoundException(idAsInt);
             }
         } catch (NumberFormatException e) {
-            throw new Exception(id);
+            throw new IdNotANumberException(id);
         }
 
         return stationEntity;
