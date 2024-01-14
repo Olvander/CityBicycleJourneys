@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DecimalFormat;
 import java.util.Optional;
 
 public class StationController {
@@ -124,6 +125,57 @@ public class StationController {
         }
 
         return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "api/stations/{id}/averageDistanceFrom/")
+    public ResponseEntity<Double> getAverageDistanceStartingFromStation(
+            @PathVariable String id, @RequestParam int[] selectedMonths) throws
+            Exception {
+
+        double[] avgDistanceFrom = new double[1];
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        HttpHeaders headers = new HttpHeaders();
+
+        avgDistanceFrom[0] = 0.0;
+        headers.setAccessControlAllowOrigin("*");
+
+        try {
+            int idAsInt = Integer.parseInt(id);
+            Optional<Station> optionalStation = this.stationDb
+                    .findById(idAsInt);
+
+            if (optionalStation.isPresent()) {
+                Station station = optionalStation.get();
+                String stationId = station.getStationId();
+
+                if (selectedMonths.length == 3) {
+
+                    String sql = "SELECT AVG(COVERED_DISTANCE) FROM "
+                            + "BICYCLE_JOURNEY WHERE (DEPARTURE_STATION_ID = '"
+                            + stationId + "');";
+                    avgDistanceFrom[0] = getAverageJourneyDistanceFromDb(sql);
+
+                } else {
+                    String dates = getDepartureDateRangeForSelectedMonths(
+                            selectedMonths);
+
+                    String sql = "SELECT AVG(COVERED_DISTANCE) FROM "
+                            + "BICYCLE_JOURNEY WHERE (DEPARTURE_STATION_ID = '"
+                            + stationId + "')" + dates + ";";
+
+                    avgDistanceFrom[0] = getAverageJourneyDistanceFromDb(sql);
+                }
+            } else {
+                throw new StationNotFoundException(idAsInt);
+            }
+        } catch (NumberFormatException e) {
+            throw new IdNotANumberException(id);
+        }
+        avgDistanceFrom[0] = Double.parseDouble(decimalFormat.format(
+                avgDistanceFrom[0] / 1000).replace(",", ".")
+        );
+
+        return new ResponseEntity<>(avgDistanceFrom[0], headers, HttpStatus.OK);
     }
 
     public int getNumberOfJourneysStartingFromStation(String stationId,
