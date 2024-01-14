@@ -1,4 +1,4 @@
 package fi.tuni.olvander.citybicyclejourneys.exceptions;
 
-public class IdNotANumberException {
+public class IdNotANumberException extends NumberFormatException {
 }
