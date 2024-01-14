@@ -178,6 +178,56 @@ public class StationController {
         return new ResponseEntity<>(avgDistanceFrom[0], headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "api/stations/{id}/averageDistanceTo/")
+    public ResponseEntity<Double> getAverageDistanceEndingAtStation(
+            @PathVariable String id, int[] selectedMonths) throws Exception {
+
+        double[] avgDistanceTo = new double[1];
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        HttpHeaders headers = new HttpHeaders();
+
+        avgDistanceTo[0] = 0.0;
+        headers.setAccessControlAllowOrigin("*");
+
+        try {
+            int idAsInt = Integer.parseInt(id);
+            Optional<Station> optionalStation = this.stationDb
+                    .findById(idAsInt);
+
+            if (optionalStation.isPresent()) {
+                Station station = optionalStation.get();
+                String stationId = station.getStationId();
+
+                if (selectedMonths.length == 3) {
+
+                    String sql = "SELECT AVG(COVERED_DISTANCE) FROM "
+                            + "BICYCLE_JOURNEY WHERE (RETURN_STATION_ID = '"
+                            + stationId + "')";
+                    avgDistanceTo[0] = getAverageJourneyDistanceFromDb(sql);
+                } else {
+
+                    String dates = getDepartureDateRangeForSelectedMonths(
+                            selectedMonths);
+
+                    String sql = "SELECT AVG(COVERED_DISTANCE) FROM "
+                            + "BICYCLE_JOURNEY WHERE (RETURN_STATION_ID = '"
+                            + stationId + "')" + dates + ";";
+                    avgDistanceTo[0] = getAverageJourneyDistanceFromDb(sql);
+                }
+            } else {
+                throw new StationNotFoundException(idAsInt);
+            }
+        } catch (NumberFormatException e) {
+            throw new IdNotANumberException(id);
+        }
+
+        avgDistanceTo[0] = Double.parseDouble(decimalFormat.format(
+                avgDistanceTo[0] / 1000).replace(",", ".")
+        );
+
+        return new ResponseEntity<>(avgDistanceTo[0], headers, HttpStatus.OK);
+    }
+
     public int getNumberOfJourneysStartingFromStation(String stationId,
             int[] selectedMonths) {
 
