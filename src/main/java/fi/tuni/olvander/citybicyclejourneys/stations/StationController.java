@@ -94,4 +94,24 @@ public class StationController {
 
         return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
     }
+
+    public int getNumberOfJourneysStartingFromStation(String stationId,
+            int[] selectedMonths) {
+
+        String sql = "SELECT COUNT(*) as count FROM BICYCLE_JOURNEY WHERE "
+                + "(DEPARTURE_STATION_ID = '" + stationId + "');";
+        int[] noOfJourneys = new int[1];
+
+        if (selectedMonths.length >= 3) {
+            noOfJourneys[0] = 0;
+        } else {
+            String dates = "";
+            sql = "SELECT COUNT(*) as count FROM BICYCLE_JOURNEY WHERE "
+                    + "(DEPARTURE_STATION_ID = '" + stationId + "')" + dates
+                    + ";";
+            noOfJourneys[0] = 0;
+        }
+
+        return noOfJourneys[0];
+    }
 }
