@@ -5,8 +5,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Optional;
 
 public class StationController {
 
@@ -31,5 +34,20 @@ public class StationController {
 
             return null;
         }
+    }
+
+    @RequestMapping(value = "api/stations/{id}/", method = RequestMethod.GET)
+    public synchronized ResponseEntity<Station> getStationWithId(
+            @PathVariable String id) throws Exception {
+
+        ResponseEntity<Station> stationEntity;
+
+        Station station = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
+        stationEntity = new ResponseEntity<>(station, headers,
+                HttpStatus.OK);
+
+        return stationEntity;
     }
 }
