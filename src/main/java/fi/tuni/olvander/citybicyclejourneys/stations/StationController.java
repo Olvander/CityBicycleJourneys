@@ -115,6 +115,29 @@ public class StationController {
         return noOfJourneys[0];
     }
 
+    public String getDepartureDateRangeForSelectedMonths(int[] selectedMonths) {
+        StringBuilder dates = new StringBuilder();
+
+        for (int i = 0; i < selectedMonths.length; i++) {
+
+            if (i == 0) {
+                dates.append(" AND (");
+            }
+
+            if (i != 0) {
+                dates.append(" OR ");
+            }
+            dates.append("DEPARTURE_DATE BETWEEN '2021-0");
+            dates.append(selectedMonths[i]);
+            dates.append("-01 00:00:00' AND '2021-0");
+            dates.append((selectedMonths[i] + 1));
+            dates.append("-01 00:00:00'");
+        }
+        dates.append(")");
+
+        return dates.toString();
+    }
+
     public int getNumberOfJourneysFromDb(String sql) {
         int[] noOfJourneys = new int[1];
 
