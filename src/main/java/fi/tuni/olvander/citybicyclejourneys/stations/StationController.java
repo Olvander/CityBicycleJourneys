@@ -239,6 +239,59 @@ public class StationController {
         return avgDistance[0];
     }
 
+    @RequestMapping(value = "api/stations/{id}/top5ReturnStationsStartingFrom/")
+    public ResponseEntity<ArrayList<Station>> getTop5ReturnStationsStartingFrom(
+            @PathVariable String id, @RequestParam int[] selectedMonths) throws
+            Exception {
+
+        ArrayList<Station> top5Stations;
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setAccessControlAllowOrigin("*");
+
+        try {
+            int idAsInt = Integer.parseInt(id);
+            Optional<Station> optionalStation = this.stationDb
+                    .findById(idAsInt);
+
+            if (optionalStation.isPresent()) {
+                Station station = optionalStation.get();
+                String stationId = station.getStationId();
+
+                if (selectedMonths.length >= 3) {
+
+                    String sql = "SELECT RETURN_STATION_ID, STATION.NAME, "
+                            + "COUNT(*) FROM BICYCLE_JOURNEY INNER JOIN STATION"
+                            +" ON BICYCLE_JOURNEY.RETURN_STATION_ID = "
+                            + "STATION.STATION_ID WHERE (DEPARTURE_STATION_ID ="
+                            + "'" + stationId + "') GROUP BY RETURN_STATION_ID "
+                            + "ORDER BY COUNT(*) DESC, STATION.NAME ASC "
+                            + "LIMIT 5;";
+
+                    top5Stations = getMostPopularStations(sql);
+                } else {
+                    String dates = getDepartureDateRangeForSelectedMonths(
+                            selectedMonths);
+
+                    String sql = "SELECT RETURN_STATION_ID, STATION.NAME, "
+                            + "COUNT(*) FROM BICYCLE_JOURNEY INNER JOIN STATION"
+                            + " ON BICYCLE_JOURNEY.RETURN_STATION_ID = "
+                            + "STATION.STATION_ID WHERE (DEPARTURE_STATION_ID ="
+                            + "'" + stationId + "')" + dates + " GROUP BY "
+                            + "RETURN_STATION_ID ORDER BY COUNT(*) DESC, "
+                            + "STATION.NAME ASC LIMIT 5;";
+                    top5Stations = getMostPopularStations(sql);
+                }
+            } else {
+                throw new StationNotFoundException(idAsInt);
+            }
+        } catch (NumberFormatException e) {
+            throw new IdNotANumberException(id);
+        }
+
+        return new ResponseEntity<>(top5Stations, headers, HttpStatus.OK);
+    }
+
     public ArrayList<Station> getMostPopularStations(String sql) {
         ArrayList<Station> mostPopularStations = new ArrayList<>();
 
