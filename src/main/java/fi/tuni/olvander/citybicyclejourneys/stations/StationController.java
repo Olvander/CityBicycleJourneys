@@ -10,4 +10,6 @@ public class StationController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public StationController() {}
 }
