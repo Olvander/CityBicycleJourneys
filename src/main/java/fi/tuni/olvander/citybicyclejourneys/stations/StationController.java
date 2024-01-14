@@ -103,13 +103,13 @@ public class StationController {
         int[] noOfJourneys = new int[1];
 
         if (selectedMonths.length >= 3) {
-            noOfJourneys[0] = 0;
+            noOfJourneys[0] = getNumberOfJourneysFromDb(sql);
         } else {
             String dates = "";
             sql = "SELECT COUNT(*) as count FROM BICYCLE_JOURNEY WHERE "
                     + "(DEPARTURE_STATION_ID = '" + stationId + "')" + dates
                     + ";";
-            noOfJourneys[0] = 0;
+            noOfJourneys[0] = getNumberOfJourneysFromDb(sql);
         }
 
         return noOfJourneys[0];
