@@ -117,6 +117,27 @@ public class StationController {
         return noOfJourneys[0];
     }
 
+    public int getNumberOfJourneysEndingAtStation(String stationId,
+                                                  int[] selectedMonths) {
+
+        String sql = "SELECT COUNT(*) as count FROM BICYCLE_JOURNEY WHERE "
+                + "(RETURN_STATION_ID = '" + stationId + "');";
+        int[] noOfJourneys = new int[1];
+
+        if (selectedMonths.length >= 3) {
+            noOfJourneys[0] = getNumberOfJourneysFromDb(sql);
+        } else {
+            String dates = getDepartureDateRangeForSelectedMonths(
+                    selectedMonths);
+            sql = "SELECT COUNT(*) as count FROM BICYCLE_JOURNEY WHERE "
+                    + "(RETURN_STATION_ID = '" + stationId + "')" + dates + ";";
+            noOfJourneys[0] = getNumberOfJourneysFromDb(sql);
+        }
+
+        return noOfJourneys[0];
+    }
+
+
     public String getDepartureDateRangeForSelectedMonths(int[] selectedMonths) {
         StringBuilder dates = new StringBuilder();
 
