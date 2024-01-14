@@ -96,6 +96,36 @@ public class StationController {
         return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "api/stations/{id}/totalJourneysTo/",
+            method = RequestMethod.GET) public ResponseEntity<Integer>
+            getTotalJourneysEndingAtStation(@PathVariable String id,
+            @RequestParam int[] selectedMonths) throws Exception {
+
+        int noOfJourneys;
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setAccessControlAllowOrigin("*");
+
+        try {
+            int idAsInt = Integer.parseInt(id);
+            Optional<Station> optionalStation = this.stationDb
+                    .findById(idAsInt);
+
+            if (optionalStation.isPresent()) {
+                Station station = optionalStation.get();
+                String stationId = station.getStationId();
+                noOfJourneys = getNumberOfJourneysEndingAtStation(stationId,
+                        selectedMonths);
+            } else {
+                throw new StationNotFoundException(idAsInt);
+            }
+        } catch (NumberFormatException e) {
+            throw new IdNotANumberException(id);
+        }
+
+        return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
+    }
+
     public int getNumberOfJourneysStartingFromStation(String stationId,
             int[] selectedMonths) {
 
