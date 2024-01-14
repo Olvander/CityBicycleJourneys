@@ -106,7 +106,8 @@ public class StationController {
         if (selectedMonths.length >= 3) {
             noOfJourneys[0] = getNumberOfJourneysFromDb(sql);
         } else {
-            String dates = "";
+            String dates = getDepartureDateRangeForSelectedMonths(
+                    selectedMonths);
             sql = "SELECT COUNT(*) as count FROM BICYCLE_JOURNEY WHERE "
                     + "(DEPARTURE_STATION_ID = '" + stationId + "')" + dates
                     + ";";
