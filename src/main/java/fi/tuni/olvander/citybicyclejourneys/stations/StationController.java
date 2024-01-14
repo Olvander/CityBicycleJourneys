@@ -42,11 +42,23 @@ public class StationController {
 
         ResponseEntity<Station> stationEntity;
 
-        Station station = null;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccessControlAllowOrigin("*");
-        stationEntity = new ResponseEntity<>(station, headers,
-                HttpStatus.OK);
+        try {
+            int idAsInt = Integer.parseInt(id);
+            Optional<Station> optionalStation = this.stationDb
+                    .findById(idAsInt);
+
+            if (optionalStation.isPresent()) {
+                Station station = optionalStation.get();
+                HttpHeaders headers = new HttpHeaders();
+                headers.setAccessControlAllowOrigin("*");
+                stationEntity = new ResponseEntity<>(station, headers,
+                        HttpStatus.OK);
+            } else {
+                throw new Exception(id);
+            }
+        } catch (NumberFormatException e) {
+            throw new Exception(id);
+        }
 
         return stationEntity;
     }
