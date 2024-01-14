@@ -114,4 +114,14 @@ public class StationController {
 
         return noOfJourneys[0];
     }
+
+    public int getNumberOfJourneysFromDb(String sql) {
+        int[] noOfJourneys = new int[1];
+
+        jdbcTemplate.query(sql, resultSet -> {
+            noOfJourneys[0] = resultSet.getInt(1);
+        });
+
+        return noOfJourneys[0];
+    }
 }
