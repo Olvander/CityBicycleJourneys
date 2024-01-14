@@ -244,6 +244,9 @@ public class StationController {
 
         jdbcTemplate.query(sql,
                 resultSet -> {
+                    Optional<Station> optionalStation = stationDb
+                            .findByStationId(resultSet.getString(1));
+                    optionalStation.ifPresent(mostPopularStations::add);
                 });
 
         return mostPopularStations;
