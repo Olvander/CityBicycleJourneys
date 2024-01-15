@@ -58,4 +58,28 @@ public class BicycleJourneyController {
         return new ResponseEntity<>(this.allJourneys, headers, HttpStatus.OK);
     }
 
+    public String getDepartureDateRangeForMonthsToDisplay(
+            int[] selectedMonths) {
+
+        StringBuilder dates = new StringBuilder();
+
+        for (int i = 0; i < selectedMonths.length; i++) {
+
+            if (i == 0) {
+                dates.append("(");
+            }
+
+            if (i != 0) {
+                dates.append(" OR ");
+            }
+            dates.append("DEPARTURE_DATE BETWEEN '2021-0");
+            dates.append(selectedMonths[i]);
+            dates.append("-01 00:00:00' AND '2021-0");
+            dates.append((selectedMonths[i] + 1));
+            dates.append("-01 00:00:00'");
+        }
+        dates.append(")");
+
+        return dates.toString();
+    }
 }
