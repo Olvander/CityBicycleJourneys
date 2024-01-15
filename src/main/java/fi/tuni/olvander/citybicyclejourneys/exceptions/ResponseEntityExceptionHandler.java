@@ -34,4 +34,18 @@ public class ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionInfo, headers,
                 HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(IdNotANumberException.class)
+    public ResponseEntity<ExceptionInfo> returnIdException(
+            IdNotANumberException exception) {
+
+        ExceptionInfo exceptionInfo = new ExceptionInfo(
+                "Error finding id " + exception.getId()
+                        + " which is not a number");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
+
+        return new ResponseEntity<>(exceptionInfo, headers,
+                HttpStatus.NOT_FOUND);
+    }
 }
