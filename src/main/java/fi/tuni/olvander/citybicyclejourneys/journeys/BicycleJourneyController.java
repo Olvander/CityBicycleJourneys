@@ -214,6 +214,18 @@ public class BicycleJourneyController {
         return station;
     }
 
+    public void addStationsToHashMap() {
+
+        if (this.stationsMap == null) {
+            HashMap<String, Station> map = new HashMap<>();
+
+            for (int i = 0; i < stations.size(); i++) {
+                map.put(this.stations.get(i).getStationId(), stations.get(i));
+            }
+            this.stationsMap = map;
+        }
+    }
+
     @RequestMapping(value = "api/journeys/departureDesc/",
             method = RequestMethod.GET) public ResponseEntity
             <Iterable<BicycleJourney>> getJourneysSortedByDepartureStationDesc(
@@ -300,18 +312,6 @@ public class BicycleJourneyController {
         this.allJourneys = journeys;
 
         return getBicycleJourneysWithResponseEntity();
-    }
-
-    public void addStationsToHashMap() {
-
-        if (this.stationsMap == null) {
-            HashMap<String, Station> map = new HashMap<>();
-
-            for (int i = 0; i < stations.size(); i++) {
-                map.put(this.stations.get(i).getStationId(), stations.get(i));
-            }
-            this.stationsMap = map;
-        }
     }
 
     public LocalDateTime getLocalDateTime(String dateTime) {
