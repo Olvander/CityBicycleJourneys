@@ -1,8 +1,11 @@
 package fi.tuni.olvander.citybicyclejourneys.journeys;
 
+import fi.tuni.olvander.citybicyclejourneys.stations.Station;
 import fi.tuni.olvander.citybicyclejourneys.stations.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.ArrayList;
 
 public class BicycleJourneyController {
     @Autowired
@@ -15,5 +18,7 @@ public class BicycleJourneyController {
     private JdbcTemplate jdbcTemplate;
 
     private Iterable<BicycleJourney> allJourneys;
+
+    private ArrayList<Station> stations;
 
 }
