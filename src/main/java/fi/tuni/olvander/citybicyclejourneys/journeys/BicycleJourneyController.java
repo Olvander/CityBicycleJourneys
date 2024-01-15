@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 public class BicycleJourneyController {
     @Autowired
@@ -253,6 +250,22 @@ public class BicycleJourneyController {
             @RequestParam int[] selectedMonths) {
 
         sortJourneys("ascending", "return", selectedMonths);
+
+        return getBicycleJourneysWithResponseEntity();
+    }
+
+    @RequestMapping(value = "api/journeys/distanceDesc/",
+            method = RequestMethod.GET) public ResponseEntity
+            <Iterable<BicycleJourney>> getJourneysSortedByDistanceDesc(
+            @RequestParam int[] selectedMonths) {
+
+        ArrayList<BicycleJourney> journeys = this.getJourneysBetweenDates(
+                selectedMonths);
+
+        journeys.sort(Comparator.comparingDouble(
+                BicycleJourney::getCoveredDistance).reversed());
+
+        this.allJourneys = journeys;
 
         return getBicycleJourneysWithResponseEntity();
     }
