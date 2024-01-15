@@ -182,6 +182,17 @@ public class BicycleJourneyController {
         }
     }
 
+    public Optional<Station> findStationFromMap(String stationId) {
+        Optional<Station> station = Optional.empty();
+        getAllStations();
+        addStationsToHashMap();
+
+        if (this.stationsMap.get(stationId) != null) {
+            station = Optional.of(this.stationsMap.get(stationId));
+        }
+
+        return station;
+    }
 
     public LocalDateTime getLocalDateTime(String dateTime) {
         String date = dateTime.substring(0, 10);
