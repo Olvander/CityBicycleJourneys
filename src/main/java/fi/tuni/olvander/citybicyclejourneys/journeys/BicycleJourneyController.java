@@ -1,5 +1,6 @@
 package fi.tuni.olvander.citybicyclejourneys.journeys;
 
+import fi.tuni.olvander.citybicyclejourneys.exceptions.IdNotANumberException;
 import fi.tuni.olvander.citybicyclejourneys.stations.Station;
 import fi.tuni.olvander.citybicyclejourneys.stations.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 public class BicycleJourneyController {
     @Autowired
@@ -64,6 +67,31 @@ public class BicycleJourneyController {
         }
 
         return getBicycleJourneysWithResponseEntity();
+    }
+
+    @RequestMapping(value = "api/journeys/{id}/", method = RequestMethod.GET)
+    public synchronized ResponseEntity<BicycleJourney> getJourney(
+            @PathVariable String id) throws Exception {
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setAccessControlAllowOrigin("*");
+
+        try {
+            Long idAsLong = Long.parseLong(id);
+            Optional<BicycleJourney> optionalJourney = this.bicycleJourneyDb
+                    .findById(idAsLong);
+
+            if (optionalJourney.isPresent()) {
+                BicycleJourney journey = optionalJourney.get();
+
+                return new ResponseEntity<>(journey, headers, HttpStatus.OK);
+            } else {
+
+            }
+        } catch (NumberFormatException e) {
+            throw new IdNotANumberException(id);
+        }
     }
 
     public ResponseEntity<Iterable<BicycleJourney>>
