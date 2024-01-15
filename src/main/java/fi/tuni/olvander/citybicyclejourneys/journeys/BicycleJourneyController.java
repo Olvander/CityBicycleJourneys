@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -81,5 +84,19 @@ public class BicycleJourneyController {
         dates.append(")");
 
         return dates.toString();
+    }
+
+    public LocalDateTime getLocalDateTime(String dateTime) {
+        String date = dateTime.substring(0, 10);
+        String time = "00:00";
+
+        if (dateTime.contains("T")) {
+            time = dateTime.substring(11);
+        }
+        LocalDateTime dt = LocalDateTime.of(
+                LocalDate.parse(date),
+                LocalTime.parse(time));
+
+        return dt;
     }
 }
