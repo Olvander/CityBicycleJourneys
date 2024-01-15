@@ -21,4 +21,17 @@ public class ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionInfo, headers,
                 HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(StationNotFoundException.class)
+    public ResponseEntity<ExceptionInfo> returnStationException(
+            StationNotFoundException exception) {
+
+        ExceptionInfo exceptionInfo = new ExceptionInfo(
+                "Cannot find Station with an id " + exception.getId());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
+
+        return new ResponseEntity<>(exceptionInfo, headers,
+                HttpStatus.NOT_FOUND);
+    }
 }
