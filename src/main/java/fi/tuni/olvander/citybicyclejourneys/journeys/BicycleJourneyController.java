@@ -14,4 +14,6 @@ public class BicycleJourneyController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private Iterable<BicycleJourney> allJourneys;
+
 }
