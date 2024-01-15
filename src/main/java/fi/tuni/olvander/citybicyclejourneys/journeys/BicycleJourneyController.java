@@ -163,6 +163,41 @@ public class BicycleJourneyController {
         return dates.toString();
     }
 
+    public void sortJourneys(String sortDirection, String type,
+            int[] monthsToDisplay) {
+
+        ArrayList<BicycleJourney> journeys =
+                this.getJourneysBetweenDates(monthsToDisplay);
+
+        journeys.sort((o1, o2) -> {
+            Optional<Station> s1 = Optional.empty();
+            Optional<Station> s2 = Optional.empty();
+
+            if (type.equals("return")) {
+                s1 = findStationFromMap(o1.getReturnStationId());
+                s2 = findStationFromMap(o2.getReturnStationId());
+            } else if (type.equals("departure")) {
+                s1 = findStationFromMap(o1.getDepartureStationId());
+                s2 = findStationFromMap(o2.getDepartureStationId());
+            }
+
+            if (s1.isEmpty() && s2.isEmpty()) {
+                return 0;
+            } else if (s1.isEmpty()) {
+                return -1;
+            } else if (s2.isEmpty()) {
+                return 1;
+            } else {
+                return s1.get().getName().compareTo(s2.get().getName());
+            }
+        });
+
+        if (sortDirection.equals("descending")) {
+            Collections.reverse(journeys);
+        }
+        this.allJourneys = journeys;
+    }
+
     public void getAllStations() {
 
         if (this.stations == null) {
