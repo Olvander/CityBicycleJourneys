@@ -160,6 +160,13 @@ public class BicycleJourneyController {
         return dates.toString();
     }
 
+    public void getAllStations() {
+
+        if (this.stations == null) {
+            this.stations = (ArrayList<Station>) this.stationDb.findAll();
+        }
+    }
+
     public LocalDateTime getLocalDateTime(String dateTime) {
         String date = dateTime.substring(0, 10);
         String time = "00:00";
