@@ -6,4 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BicycleJourneyController {
     @Autowired
     private StationRepository stationDb;
+
+    @Autowired
+    private BicycleJourneyRepository bicycleJourneyDb;
 }
