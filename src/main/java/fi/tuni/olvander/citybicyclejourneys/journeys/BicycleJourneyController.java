@@ -286,6 +286,22 @@ public class BicycleJourneyController {
         return getBicycleJourneysWithResponseEntity();
     }
 
+    @RequestMapping(value = "api/journeys/durationAsc/",
+            method = RequestMethod.GET) public ResponseEntity
+            <Iterable<BicycleJourney>> getJourneysSortedByDurationAsc(
+            @RequestParam int[] selectedMonths) {
+
+        ArrayList<BicycleJourney> journeys = this.getJourneysBetweenDates(
+                selectedMonths);
+
+        journeys.sort(Comparator.comparingInt(
+                BicycleJourney::getJourneyDuration));
+
+        this.allJourneys = journeys;
+
+        return getBicycleJourneysWithResponseEntity();
+    }
+
     public void addStationsToHashMap() {
 
         if (this.stationsMap == null) {
