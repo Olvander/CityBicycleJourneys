@@ -217,6 +217,16 @@ public class BicycleJourneyController {
         return station;
     }
 
+    @RequestMapping(value = "api/journeys/departureDesc/",
+            method = RequestMethod.GET) public ResponseEntity
+            <Iterable<BicycleJourney>> getJourneysSortedByDepartureStationDesc(
+            @RequestParam int[] selectedMonths) {
+
+        sortJourneys("descending", "departure", selectedMonths);
+
+        return getBicycleJourneysWithResponseEntity();
+    }
+
     public void addStationsToHashMap() {
 
         if (this.stationsMap == null) {
