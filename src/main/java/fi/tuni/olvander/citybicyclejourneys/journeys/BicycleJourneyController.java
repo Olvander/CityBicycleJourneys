@@ -282,6 +282,22 @@ public class BicycleJourneyController {
         return getBicycleJourneysWithResponseEntity();
     }
 
+    @RequestMapping(value = "api/journeys/distanceAsc/",
+            method = RequestMethod.GET) public ResponseEntity
+            <Iterable<BicycleJourney>> getJourneysSortedByDistanceAsc(
+            @RequestParam int[] selectedMonths) {
+
+        ArrayList<BicycleJourney> journeys = this.getJourneysBetweenDates(
+                selectedMonths);
+
+        journeys.sort(Comparator.comparingDouble(
+                BicycleJourney::getCoveredDistance));
+
+        this.allJourneys = journeys;
+
+        return getBicycleJourneysWithResponseEntity();
+    }
+
     @RequestMapping(value = "api/journeys/durationDesc/",
             method = RequestMethod.GET) public ResponseEntity
             <Iterable<BicycleJourney>> getJourneysSortedByDurationDesc(
