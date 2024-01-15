@@ -1,5 +1,6 @@
 package fi.tuni.olvander.citybicyclejourneys.journeys;
 
+import fi.tuni.olvander.citybicyclejourneys.exceptions.BicycleJourneyNotFoundException;
 import fi.tuni.olvander.citybicyclejourneys.exceptions.IdNotANumberException;
 import fi.tuni.olvander.citybicyclejourneys.stations.Station;
 import fi.tuni.olvander.citybicyclejourneys.stations.StationRepository;
@@ -87,7 +88,7 @@ public class BicycleJourneyController {
 
                 return new ResponseEntity<>(journey, headers, HttpStatus.OK);
             } else {
-
+                throw new BicycleJourneyNotFoundException(idAsLong);
             }
         } catch (NumberFormatException e) {
             throw new IdNotANumberException(id);
