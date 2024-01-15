@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class BicycleJourneyController {
@@ -34,6 +35,8 @@ public class BicycleJourneyController {
     private Iterable<BicycleJourney> allJourneys;
 
     private ArrayList<Station> stations;
+
+    private HashMap<String, Station> stationsMap;
 
     public BicycleJourneyController() {}
 
@@ -166,6 +169,7 @@ public class BicycleJourneyController {
             this.stations = (ArrayList<Station>) this.stationDb.findAll();
         }
     }
+
 
     public LocalDateTime getLocalDateTime(String dateTime) {
         String date = dateTime.substring(0, 10);
