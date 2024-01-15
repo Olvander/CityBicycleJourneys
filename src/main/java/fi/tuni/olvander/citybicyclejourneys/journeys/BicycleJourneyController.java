@@ -51,6 +51,21 @@ public class BicycleJourneyController {
         return new ResponseEntity<>(count, headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "api/journeys/", method = RequestMethod.GET)
+    public synchronized ResponseEntity<Iterable<BicycleJourney>> getJourneys(
+            @RequestParam int[] selectedMonths) {
+
+        if (selectedMonths.length == 3) {
+            this.allJourneys = this.bicycleJourneyDb.findAll();
+            Collections.reverse((ArrayList<BicycleJourney>) this.allJourneys);
+        } else {
+            this.allJourneys = this.getJourneysBetweenDates(selectedMonths);
+            Collections.reverse((ArrayList<BicycleJourney>) this.allJourneys);
+        }
+
+        return getBicycleJourneysWithResponseEntity();
+    }
+
     public ResponseEntity<Iterable<BicycleJourney>>
     getBicycleJourneysWithResponseEntity() {
 
