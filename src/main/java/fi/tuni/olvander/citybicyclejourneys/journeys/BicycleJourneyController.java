@@ -21,4 +21,6 @@ public class BicycleJourneyController {
 
     private ArrayList<Station> stations;
 
+    public BicycleJourneyController() {}
+
 }
