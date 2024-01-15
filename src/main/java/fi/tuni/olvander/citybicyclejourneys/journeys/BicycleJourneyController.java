@@ -61,6 +61,36 @@ public class BicycleJourneyController {
         return new ResponseEntity<>(this.allJourneys, headers, HttpStatus.OK);
     }
 
+    public ArrayList<BicycleJourney> getJourneysBetweenDates(
+            int[] monthsToDisplay) {
+
+        if (monthsToDisplay.length >= 3) {
+            this.allJourneys = bicycleJourneyDb.findAll();
+            ArrayList<BicycleJourney> journeys =
+                    (ArrayList<BicycleJourney>) this.allJourneys;
+
+            return journeys;
+        } else {
+            ArrayList<BicycleJourney> journeys = new ArrayList<>();
+            String dates =
+                    getDepartureDateRangeForMonthsToDisplay(monthsToDisplay);
+            String sql = "SELECT * FROM BICYCLE_JOURNEY WHERE " + dates;
+            jdbcTemplate.query(sql, resultSet -> {
+                journeys.add(
+                        new BicycleJourney(
+                                resultSet.getLong(1),
+                                this.getLocalDateTime(resultSet.getString(3)),
+                                this.getLocalDateTime(resultSet.getString(6)),
+                                resultSet.getString(4),
+                                resultSet.getString(7),
+                                resultSet.getDouble(2),
+                                resultSet.getInt(5)));
+            });
+
+            return journeys;
+        }
+    }
+
     public String getDepartureDateRangeForMonthsToDisplay(
             int[] selectedMonths) {
 
