@@ -285,7 +285,7 @@ public class BicycleJourneyController {
     @RequestMapping(value = "api/journeys/distanceAsc/",
             method = RequestMethod.GET) public ResponseEntity
             <Iterable<BicycleJourney>> getJourneysSortedByDistanceAsc(
-            @RequestParam int[] selectedMonths) {
+                    @RequestParam int[] selectedMonths) {
 
         ArrayList<BicycleJourney> journeys = this.getJourneysBetweenDates(
                 selectedMonths);
