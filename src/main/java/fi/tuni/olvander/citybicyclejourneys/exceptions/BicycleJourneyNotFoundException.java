@@ -1,4 +1,4 @@
 package fi.tuni.olvander.citybicyclejourneys.exceptions;
 
-public class BicycleJourneyNotFoundException {
+public class BicycleJourneyNotFoundException extends IllegalArgumentException {
 }
