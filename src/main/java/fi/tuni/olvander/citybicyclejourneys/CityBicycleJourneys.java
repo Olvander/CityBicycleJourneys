@@ -66,6 +66,12 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		}
 	}
 
+	public void showHowToOpenTheApp() {
+		logger.info("");
+		logger.info("To open the app, type http://localhost:8080 in browser");
+		logger.info("");
+	}
+
 
 	public synchronized void importStationsFrom(String file) {
 
