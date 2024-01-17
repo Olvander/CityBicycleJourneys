@@ -72,6 +72,14 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		logger.info("");
 	}
 
+	public void showStationsRelatedCommands() {
+		logger.info("");
+		logger.info("To get all stations in command prompt, type:");
+		logger.info("curl -i http://localhost:8080/api/stations/");
+		logger.info("To get one station, in this case with id 1, type:");
+		logger.info("curl -i http://localhost:8080/api/stations/1/");
+	}
+
 
 	public synchronized void importStationsFrom(String file) {
 
