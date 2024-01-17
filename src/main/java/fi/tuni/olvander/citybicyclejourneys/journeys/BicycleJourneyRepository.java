@@ -11,5 +11,4 @@ import org.springframework.data.repository.CrudRepository;
  * @since   1.21
  */
 public interface BicycleJourneyRepository extends CrudRepository
-        <BicycleJourney, Long> {
-}
+        <BicycleJourney, Long> {}
