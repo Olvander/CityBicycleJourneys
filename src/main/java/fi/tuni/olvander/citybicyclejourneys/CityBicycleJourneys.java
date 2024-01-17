@@ -80,6 +80,10 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		logger.info("curl -i http://localhost:8080/api/stations/1/");
 	}
 
+	public void showJourneysRelatedCommands() {
+		logger.info("To get one journey with id 1, type in command prompt:");
+		logger.info("curl -i http://localhost:8080/api/journeys/1/");
+	}
 
 	public synchronized void importStationsFrom(String file) {
 
