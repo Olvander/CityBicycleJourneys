@@ -36,7 +36,7 @@ public class CityBicycleJourneys implements CommandLineRunner {
 
 	@Override
 	@Transactional
-	public void run(String... args) throws Exception {
+	public synchronized void run(String... args) throws Exception {
 
 		String stationsFile = "./csv/"
 				+ "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv";
