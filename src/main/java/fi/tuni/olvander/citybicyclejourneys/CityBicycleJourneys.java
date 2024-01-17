@@ -19,28 +19,62 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
+/**
+ * The main  class for the City Bicycle Journeys App.<br/><br/>
+ *
+ * For importing City Bicycle Stations and Bicycle Journeys into the H2<br/>
+ * database as well as for showing commands for opening the app in the<br/>
+ * browser and commands for REST requests.<br/><br/>
+ *
+ * Implements the CommandLineRunner interface.
+ *
+ * @author  Olli Pertovaara
+ * @version 2023.12.13
+ * @since   1.21
+ */
 @SpringBootApplication
 public class CityBicycleJourneys implements CommandLineRunner {
 
-    @Autowired
+
+	/**
+	 * A City Bicycle Station repository instance.
+	 */
+	@Autowired
 	StationRepository stationDb;
 
+	/**
+	 * A City Bicycle Journey repository instance.
+	 */
 	@Autowired
 	BicycleJourneyRepository bicycleJourneyDb;
 
+	/**
+	 * An instance of Log for logging purposes.
+	 */
 	Log logger = LogFactory.getLog(CityBicycleJourneys.class);
 
+	/**
+	 * The main method for the CityBicycleJourneys class.
+	 *
+	 * @param args Command line arguments, not used
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(CityBicycleJourneys.class, args);
 	}
 
+	/**
+	 * The run method for implementing the CommandLineRunner interface.
+	 *
+	 * @param args       Arguments for the run method, not used
+	 * @throws Exception The run method may throw an Exception
+	 */
 	@Override
 	@Transactional
 	public synchronized void run(String... args) throws Exception {
 
 		String stationsFile = "./csv/"
 				+ "Helsingin_ja_Espoon_kaupunkipyöräasemat_avoin.csv";
-		
+
 		String rs05File = "./csv/2021-05.csv";
 		String rs06File = "./csv/2021-06.csv";
 		String rs07File = "./csv/2021-07.csv";
@@ -72,12 +106,18 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		showHowToOpenTheApp();
 	}
 
+	/**
+	 * For showing how to open the app in the browser as an info message.
+	 */
 	public void showHowToOpenTheApp() {
 		logger.info("");
 		logger.info("To open the app, type http://localhost:8080 in browser");
 		logger.info("");
 	}
 
+	/**
+	 * For showing Stations related commands in the console as info messages.
+	 */
 	public void showStationsRelatedCommands() {
 		logger.info("");
 		logger.info("To get all stations in command prompt, type:");
@@ -86,11 +126,19 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		logger.info("curl -i http://localhost:8080/api/stations/1/");
 	}
 
+	/**
+	 * For showing Journeys related commands in the console as info messages.
+	 */
 	public void showJourneysRelatedCommands() {
 		logger.info("To get one journey with id 1, type in command prompt:");
 		logger.info("curl -i http://localhost:8080/api/journeys/1/");
 	}
 
+	/**
+	 * For importing City Bicycle Stations from a CSV file.
+	 *
+	 * @param file The CSV file name of type String
+	 */
 	public synchronized void importStationsFrom(String file) {
 
 		try {
@@ -100,7 +148,6 @@ public class CityBicycleJourneys implements CommandLineRunner {
 
 				while (rs.next()) {
 					Optional<Station> station = getStationData(rs);
-
 					station.ifPresent(this::importBicycleStation);
 				}
 			}
@@ -109,6 +156,11 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		}
 	}
 
+	/**
+	 * For importing City Bicycle Journeys from a CSV file.
+	 *
+	 * @param file The CSV file name of type String
+	 */
 	public synchronized void importJourneysFrom(String file) {
 
 		try {
@@ -128,8 +180,15 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		}
 	}
 
-
-
+	/**
+	 * For getting Bicycle Journey data from the Bicycle Journey CSV files<br/>
+	 * for saving to the database. Excludes the Bicycle Journeys having a<br/>
+	 * distance or a duration less than 10 meters or seconds dynamically.<br/>
+	 *
+	 * @param rs         A ResultSet from the Csv().read() method
+	 * @return           An Optional Bicycle Journey object
+	 * @throws Exception Throw this if the ResultSet data cannot be parsed
+	 */
 	public synchronized Optional<BicycleJourney> getBicycleJourneyData(
 			ResultSet rs) throws Exception {
 
@@ -156,11 +215,21 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		} catch (Exception e) {
 			logger.error("Could not get all values");
 			logger.error("Please check column numbers in the CSV file(s)");
+
 		}
 
 		return bicycleJourney;
 	}
 
+	/**
+	 * Gets Station data from the Station CSV file for saving to database<br/>
+	 * Removes possible commas and the text after the commas in Station<br/>
+	 * names for a cleaner look.
+	 *
+	 * @param rs         A ResultSet from the Csv().read() method
+	 * @return           An Optional Station object
+	 * @throws Exception Throws this if the ResultSet data cannot be parsed
+	 */
 	public synchronized Optional<Station> getStationData(ResultSet rs) throws
 			Exception {
 
@@ -191,14 +260,33 @@ public class CityBicycleJourneys implements CommandLineRunner {
 		return stationData;
 	}
 
+	/**
+	 * Imports a City Bicycle Journey to the Bicycle Journey database.
+	 *
+	 * @param journey The Bicycle Journey to be imported
+	 */
 	public synchronized void importBicycleJourney(BicycleJourney journey) {
 		this.bicycleJourneyDb.save(journey);
 	}
 
+
+	/**
+	 * A method for importing a City Bicycle Station to the Station database.
+	 *
+	 * @param station The Station to be imported
+	 */
 	public synchronized void importBicycleStation(Station station) {
 		this.stationDb.save(station);
 	}
 
+	/**
+	 * A helper method. Returns a LocalDateTime object from a given String.<br/>
+	 * The LocalDateTime object is set a default value "00:00" if the<br/>
+	 * dateTime String does not include a time.
+	 *
+	 * @param dateTime A dateTime String having a date
+	 * @return         A LocalDateTime object
+	 */
 	public synchronized LocalDateTime getLocalDateTime(String dateTime) {
 		String date = dateTime.substring(0, 10);
 		String time = "00:00";
