@@ -4,6 +4,7 @@ import fi.tuni.olvander.citybicyclejourneys.journeys.BicycleJourney;
 import fi.tuni.olvander.citybicyclejourneys.journeys.BicycleJourneyRepository;
 import fi.tuni.olvander.citybicyclejourneys.stations.Station;
 import fi.tuni.olvander.citybicyclejourneys.stations.StationRepository;
+import jakarta.transaction.Transactional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.h2.tools.Csv;
@@ -34,6 +35,7 @@ public class CityBicycleJourneys implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 
 		String stationsFile = "./csv/"
