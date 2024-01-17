@@ -64,6 +64,10 @@ public class CityBicycleJourneys implements CommandLineRunner {
 			logger.info("");
 			logger.info("All Bicycle Journey datasets have been imported!");
 		}
+
+		showStationsRelatedCommands();
+		showJourneysRelatedCommands();
+		showHowToOpenTheApp();
 	}
 
 	public void showHowToOpenTheApp() {
