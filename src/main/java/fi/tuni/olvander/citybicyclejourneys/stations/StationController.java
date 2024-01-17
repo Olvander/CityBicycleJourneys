@@ -17,17 +17,40 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * A Station Controller class used to make accessing City Bicycle Station<br/>
+ * related data possible with the help of endpoints and other methods.
+ *
+ * @author  Olli Pertovaara
+ * @version 2023.12.13
+ * @since   1.21
+ */
 @Controller
 public class StationController {
 
+    /**
+     * The Station Repository for interacting with the Station database.<br/>
+     */
     @Autowired
     private StationRepository stationDb;
 
+    /**
+     * A Jdbc Template for interacting with the H2 database<br/>
+     * which has Stations and Bicycle Journeys as tables.
+     */
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * A default constructor for the StationController class.
+     */
     public StationController() {}
 
+    /**
+     * An endpoint for getting all the available Stations.
+     *
+     * @return A Response Entity with an Iterable Station List
+     */
     @RequestMapping(value = "api/stations/", method = RequestMethod.GET)
     public synchronized ResponseEntity<Iterable<Station>> getStations() {
 
@@ -43,6 +66,13 @@ public class StationController {
         }
     }
 
+    /**
+     * An endpoint for getting one single Station.
+     *
+     * @param id         The id of the Station
+     * @return           A Response Entity with a Station with URL path id
+     * @throws Exception StationNotFoundException / IdNotANumberException
+     */
     @RequestMapping(value = "api/stations/{id}/", method = RequestMethod.GET)
     public synchronized ResponseEntity<Station> getStationWithId(
             @PathVariable String id) throws Exception {
@@ -70,10 +100,19 @@ public class StationController {
         return stationEntity;
     }
 
+    /**
+     * An endpoint for getting the total number of journeys starting from a<br/>
+     * Station with the id in the URL path.
+     *
+     * @param id             The id in the URL path
+     * @param selectedMonths 1 to 3 months selected (int values)
+     * @return               A Response Entity with the Journey count (Int)
+     * @throws Exception     StationNotFoundException / IdNotANumberException
+     */
     @RequestMapping(value = "api/stations/{id}/totalJourneysFrom/",
             method = RequestMethod.GET) public ResponseEntity<Integer>
             getTotalJourneysStartingFromStation(@PathVariable String id,
-            @RequestParam int[] selectedMonths) throws Exception {
+                    @RequestParam int[] selectedMonths) throws Exception {
 
         int noOfJourneys;
         HttpHeaders headers = new HttpHeaders();
@@ -100,10 +139,19 @@ public class StationController {
         return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
     }
 
+    /**
+     * An endpoint for returning the total number of journeys ending at the<br/>
+     * Station with the id in the URL path.
+     *
+     * @param id             The id of the Station whose journeys are fetched
+     * @param selectedMonths 1 to 3 months selected (int values)
+     * @return               A Response Entity with the Journey count (Int)
+     * @throws Exception     StationNotFoundException / IdNotANumberException
+     */
     @RequestMapping(value = "api/stations/{id}/totalJourneysTo/",
             method = RequestMethod.GET) public ResponseEntity<Integer>
             getTotalJourneysEndingAtStation(@PathVariable String id,
-            @RequestParam int[] selectedMonths) throws Exception {
+                    @RequestParam int[] selectedMonths) throws Exception {
 
         int noOfJourneys;
         HttpHeaders headers = new HttpHeaders();
@@ -130,6 +178,15 @@ public class StationController {
         return new ResponseEntity<>(noOfJourneys, headers, HttpStatus.OK);
     }
 
+    /**
+     * An endpoint to get the average distance of A Bicycle Journey<br/>
+     * starting from the Station whose id is in the URL path.
+     *
+     * @param id             The Station id whose average distance is fetched
+     * @param selectedMonths 1 to 3 selected months (int values)
+     * @return               Response Entity with an avg distance as a Double
+     * @throws Exception     StationNotFoundException / IdNotANumberException
+     */
     @RequestMapping(value = "api/stations/{id}/averageDistanceFrom/")
     public ResponseEntity<Double> getAverageDistanceStartingFromStation(
             @PathVariable String id, @RequestParam int[] selectedMonths) throws
@@ -181,6 +238,15 @@ public class StationController {
         return new ResponseEntity<>(avgDistanceFrom[0], headers, HttpStatus.OK);
     }
 
+    /**
+     * An endpoint for getting the average distance of a Bicycle Journey<br/>
+     * ending at the Station whose id is in the URL path.
+     *
+     * @param id             The Station id whose average distance is fetched
+     * @param selectedMonths 1 to 3 selected months (int values)
+     * @return               Response Entity with an avg distance as a Double
+     * @throws Exception     StationNotFoundException / IdNotFoundException
+     */
     @RequestMapping(value = "api/stations/{id}/averageDistanceTo/")
     public ResponseEntity<Double> getAverageDistanceEndingAtStation(
             @PathVariable String id, int[] selectedMonths) throws Exception {
@@ -231,6 +297,12 @@ public class StationController {
         return new ResponseEntity<>(avgDistanceTo[0], headers, HttpStatus.OK);
     }
 
+    /**
+     * Returns the average distance from the Bicycle Journey database.
+     *
+     * @param sql The sql query to be performed
+     * @return    The average distance (a Double)
+     */
     public double getAverageJourneyDistanceFromDb(String sql) {
         double[] avgDistance = new double[1];
 
@@ -241,6 +313,15 @@ public class StationController {
         return avgDistance[0];
     }
 
+    /**
+     * An endpoint for returning the top 5 return Stations starting from<br/>
+     * the Station whose id is in the URL path.
+     *
+     * @param id             The id of the Station
+     * @param selectedMonths 1 to 3 selected months (int values)
+     * @return               A Response Entity with the top 5 Stations
+     * @throws Exception     StationNotFoundException / IdNotANumberException
+     */
     @RequestMapping(value = "api/stations/{id}/top5ReturnStationsStartingFrom/")
     public ResponseEntity<ArrayList<Station>> getTop5ReturnStationsStartingFrom(
             @PathVariable String id, @RequestParam int[] selectedMonths) throws
@@ -294,6 +375,15 @@ public class StationController {
         return new ResponseEntity<>(top5Stations, headers, HttpStatus.OK);
     }
 
+    /**
+     * An endpoint for returning the top 5 departure Stations ending at the<br/>
+     * Station whose id is in the URL path.
+     *
+     * @param id             The id of the Station
+     * @param selectedMonths 1 to 3 months selected (int values)
+     * @return               Response Entity with the top 5 Stations
+     * @throws Exception     StationNotFoundException or IdNotFoundException
+     */
     @RequestMapping(value = "api/stations/{id}/top5DepartureStationsEndingAt/")
     public ResponseEntity<ArrayList<Station>> getTop5DepartureStationsEndingAt(
             @PathVariable String id, @RequestParam int[] selectedMonths) throws
@@ -345,6 +435,12 @@ public class StationController {
         return new ResponseEntity<>(top5Stations, headers, HttpStatus.OK);
     }
 
+    /**
+     * Returns an ArrayList of the most popular Stations.
+     *
+     * @param sql The SQL query to be performed
+     * @return    An ArrayList having the most popular Stations
+     */
     public ArrayList<Station> getMostPopularStations(String sql) {
         ArrayList<Station> mostPopularStations = new ArrayList<>();
 
@@ -358,7 +454,14 @@ public class StationController {
         return mostPopularStations;
     }
 
-
+    /**
+     * Returns the number of Bicycle Journeys starting from the Station<br/>
+     * having the specified Station id (not the real id but a reference id).
+     *
+     * @param stationId      The Station id
+     * @param selectedMonths 1 to 3 months selected (int values)
+     * @return               The number (an int value) of Bicycle Journeys
+     */
     public int getNumberOfJourneysStartingFromStation(String stationId,
             int[] selectedMonths) {
 
@@ -380,6 +483,14 @@ public class StationController {
         return noOfJourneys[0];
     }
 
+    /**
+     * Returns the number of Bicycle Journeys ending at the Station<br/>
+     * having the specified Station id (not the real id but a reference id).
+     *
+     * @param stationId      The Station id
+     * @param selectedMonths 1 to 3 months selected (int values)
+     * @return               The Number of Journeys ending at the Station
+     */
     public int getNumberOfJourneysEndingAtStation(String stationId,
                                                   int[] selectedMonths) {
 
@@ -400,7 +511,13 @@ public class StationController {
         return noOfJourneys[0];
     }
 
-
+    /**
+     * Returns a date range used in an SQL query where the departure date<br/>
+     * is the determining factor for the selected months.
+     *
+     * @param selectedMonths The selected months as int array values
+     * @return               A String that can be used in an SQL query
+     */
     public String getDepartureDateRangeForSelectedMonths(int[] selectedMonths) {
         StringBuilder dates = new StringBuilder();
 
@@ -424,6 +541,14 @@ public class StationController {
         return dates.toString();
     }
 
+    /**
+     * Returns the number of Bicycle Journeys from the Bicycle Journey<br/>
+     * database with a condition given in the Sql query, e.g. Journeys<br/>
+     * starting from or ending at the Station.
+     *
+     * @param sql The SQL query used for fetching the number of Journeys
+     * @return    The number (an int value) of Bicycle Journeys
+     */
     public int getNumberOfJourneysFromDb(String sql) {
         int[] noOfJourneys = new int[1];
 
