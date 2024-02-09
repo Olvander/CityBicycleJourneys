@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fi.tuni.olvander.citybicyclejourneys"},{"l":"fi.tuni.olvander.citybicyclejourneys.exceptions"},{"l":"fi.tuni.olvander.citybicyclejourneys.journeys"},{"l":"fi.tuni.olvander.citybicyclejourneys.stations"}];updateSearchResults();
