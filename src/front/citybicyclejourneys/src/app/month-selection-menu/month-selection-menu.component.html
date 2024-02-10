@@ -1,1 +1,46 @@
-<p>month-selection-menu works!</p>
+<div id="month-menu" (click)="openMenu()">
+  {{menuOpened? 'Update View' : 'Select Month'}}
+</div>
+<div id="menu-items"
+     [hidden]="!menuOpened">
+  <div class="inputDiv">
+    <input type="checkbox"
+           selected id="all"
+           name="all"
+           value="All Months"
+           (click)="selectAllMonths()" />
+    <label for="all">
+      All Months
+    </label>
+  </div>
+  <div class="inputDiv">
+    <input type="checkbox"
+           id="may"
+           name="may"
+           value="May"
+      (click)="selectMonth(5)" />
+    <label for="may">
+      May
+    </label>
+  </div>
+  <div class="inputDiv">  
+    <input type="checkbox"
+           id="june"
+           name="june"
+           value="June"
+      (click)="selectMonth(6)"/>
+    <label for="June">
+      June
+    </label>
+  </div>
+  <div class="inputDiv">
+    <input type="checkbox"
+           id="july"
+           name="july"
+           value="July"
+           (click)="selectMonth(7)" />
+    <label for="July">
+      July
+    </label>
+  </div>
+</div>
