@@ -1,4 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+h1, h2, h3, p, div, a, li, th, td, b, div {
+  font-family: Arial;
+}
+
+h1, h2 {
+  color: rgb(13, 159, 207);
+}
+
+p, div, a {
+  font-size: 9pt;
+}
+
+nav {
+  margin-left: 0;
+}
+
+h1, h2, h3, div {
+  margin-left: 0;
+}
+
+p, ul {margin: 0;}
+
+table, tbody {margin-left: 0;}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
