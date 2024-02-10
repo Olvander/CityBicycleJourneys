@@ -1,1 +1,122 @@
-<p>station works!</p>
+<div id="stationDiv"
+     *ngIf="this.station !== undefined">
+  <div id="stationNameDiv">
+    <h1>
+      {{station!.name}} City Bicycle Station
+    </h1>
+  </div>
+
+  <month-selection-menu
+    id="monthMenu"
+    (selectedMonths)="monthSelected($event)"
+    [hidden]="displaySpinner">
+  </month-selection-menu>
+  
+  <div id="stationDataDiv">
+    <h2>
+      Address: {{station!.address}}
+    </h2>
+    <div id="tableAndSpinnerDiv">
+      <div id="tableDiv">
+        <table *ngIf="canDisplayTable">
+          <tr>
+            <td>Number of Journeys Starting From Here:</td>
+            <td><b>{{totalJourneysFrom!}}</b></td>
+          </tr>
+          <tr>
+            <td>Number of Journeys Ending At Here:</td>
+            <td><b>{{totalJourneysTo!}}</b></td>
+          </tr>
+          <tr>
+            <td>Average Distance For Journeys Starting From Here:</td>
+            <td><b>{{avgDistanceFrom}} km</b></td>
+          </tr>
+          <tr>
+            <td>Average Distance For Journeys Ending At Here:</td>
+            <td><b>{{avgDistanceTo}} km</b></td>
+          </tr>
+        </table>
+      </div>
+        
+      <mat-progress-spinner
+        *ngIf="displaySpinner"
+        class="spinner"
+        [mode]="spinnerMode"
+        [strokeWidth]="spinnerWidth"
+        [diameter]="spinnerDiameter">
+      </mat-progress-spinner>
+      <div *ngIf="!displaySpinner"
+           class="dataReadyDiv">
+      </div>
+    </div>
+    
+    <p class="gray">Top 5 Return Stations For Journeys Starting From Here:</p>
+    <div class="top5StationsDiv"
+         *ngIf="top5ReturnStationsStartingFrom !== undefined">
+      <div class="top5StationsInnerDiv"
+           *ngFor="let returnStation of top5ReturnStationsStartingFrom!">
+        <p>{{station!.name}} →</p>
+          <a routerLink="/stations/{{returnStation.id}}">
+            &nbsp;{{returnStation.name}}
+          </a>
+      </div>
+      <div class="top5StationsInnerDiv"
+           *ngIf="top5ReturnStationsStartingFrom.length === 0">
+        <p id="noTop5Data">No data from the selected month(s)</p>
+      </div>
+    </div>
+    <div class="btnAndSpinnerDiv" >
+      <button class="btn"
+              id="btnReturn"
+              (click)="getMostPopularReturnStationsStartingFrom()">
+        {{returnsLoadOrHide}}
+      </button>
+      
+      <mat-progress-spinner
+        *ngIf="displaySpinner2"
+        class="spinnerBelow"
+        [mode]="spinnerMode"
+        [strokeWidth]="spinnerWidth"
+        [diameter]="spinnerDiameter">
+      </mat-progress-spinner>
+      
+      <div *ngIf="!displaySpinner2"
+           class="dataReadyDiv" >
+      </div>
+    </div>
+
+    <p class="gray">Top 5 Departure Stations For Journeys Ending At Here:</p>
+    <div class="top5StationsDiv"
+        *ngIf="top5DepartureStationsEndingAt !== undefined">
+      <div class="top5StationsInnerDiv"
+          *ngFor="let departureStation of top5DepartureStationsEndingAt!">
+        <a routerLink="/stations/{{departureStation.id}}">
+          {{departureStation.name}}
+        </a>
+        <p id="returnStationp">&nbsp;→ {{station!.name}}</p>
+      </div>
+      <div class="top5StationsInnerDiv"
+          *ngIf="top5DepartureStationsEndingAt.length === 0">
+        <p id="noTop5Data">No data from the selected month(s)</p>
+      </div>
+    </div>
+    
+    <div class="btnAndSpinnerDiv" >
+      <button class="btn"
+              id="btnDeparture"
+              (click)="getMostPopularDepartureStationsEndingAt()">
+        {{departuresLoadOrHide}}
+      </button>
+      
+      <mat-progress-spinner
+        *ngIf="displaySpinner3"
+        class="spinnerBelow"
+        [mode]="spinnerMode"
+        [strokeWidth]="spinnerWidth"
+        [diameter]="spinnerDiameter">
+      </mat-progress-spinner>
+      
+      <div *ngIf="!displaySpinner3" class="dataReadyDiv" ></div>
+    </div>
+  </div>
+</div>
