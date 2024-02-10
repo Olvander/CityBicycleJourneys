@@ -1,0 +1,18 @@
+<div id="appDiv">
+  <nav>
+    <a routerLink="journeys"
+       (click)="reload('/journeys')">
+      City Bicycle Journeys
+    </a>
+    <a routerLink="stations"
+      (click)="reload('/stations')">
+      City Bicycle Stations
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
+<div id="footer">
+  <a id="license" routerLink="license">
+    License information
+  </a>
+</div>

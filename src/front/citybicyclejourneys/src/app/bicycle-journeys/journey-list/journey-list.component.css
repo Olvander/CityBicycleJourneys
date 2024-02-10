@@ -1,0 +1,151 @@
+.spinnerh2 {
+  margin: auto;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+  width: fit-content;
+  display: inline-block;
+  margin-left: 380px;
+  font-size: 18pt;
+}
+
+#monthMenu {
+  margin-left: 240px;
+}
+
+#rightDiv {
+  width: 340px;
+}
+
+#middleDiv {
+  width: 30px;
+  margin: auto;
+  display: inline-block;
+}
+
+#titleRowWithoutSpinner {
+  width: fit-content;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  height: fit-content;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+th {
+  min-width: 200px;
+  text-align: left;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 24px;
+}
+
+tr:nth-child(1) {
+  height: fit-content;
+}
+
+#titleRow {
+  width: fit-content;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  height: fit-content;
+}
+
+::ng-deep #spinner circle {
+  stroke: #088ce4 !important;
+}
+
+#spinner {
+  display: inline-block;
+  margin: auto;
+  left: 30px;
+}
+
+tr {
+  border: 1px solid darkgray;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  background: linear-gradient(180deg,#005dde, #008eef);
+  height: 11pt;
+  align-items: center;
+}
+
+th {
+  font-size: 11pt;
+}
+
+#th1, #th2, #td1, #td2 {
+  width: 300px;
+  text-align: left;
+}
+
+th {
+  justify-content: center;
+}
+
+td {
+  font-size: 10pt;
+}
+
+#th3, #td3, #th4, #td4 {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+#td4 {
+  text-align: center;
+}
+
+#td3 {
+  text-align: right;
+}
+
+#th4 {
+  justify-content: center;
+}
+
+#td4 {
+  justify-content: right;
+}
+
+#minutesDiv {
+  margin-left: auto;
+  width: 150px;
+  text-align: right;
+  font-size: 10pt;
+}
+
+a {
+  color: white;
+}
+
+tr:hover {
+  border: 1px solid #0033ff;
+}
+
+tr:hover {
+  background: #0099ff !important;
+}
+
+a:hover {
+  color: aqua;
+}
+
+
+#journey-paginator {
+  width: 764px;
+  margin: auto;
+  margin-top: 8px;
+}
+
+#journeys {
+  height: fit-content;
+}

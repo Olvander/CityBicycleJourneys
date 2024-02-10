@@ -1,0 +1,40 @@
+#month-menu {
+  width: 140px;
+  background-color: #007799;
+  color: white;
+  height: 32px;
+  border-start-start-radius: 2px;
+  border-start-end-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 11pt;
+  z-index: 10;
+}
+
+#month-menu:hover {
+  background-color: #0088aa;
+}
+
+#menu-items {
+  width: 140px;
+  min-height: 80px;
+  height: fit-content;
+  position: relative;
+}
+
+.inputDiv {
+  width: 140px;
+  background-color: #007799;
+  color: white;
+  font-size: 10pt;
+  height: 20px;
+  z-index: 10;
+  position: relative;
+}
+.inputDiv:last-child {
+  border-end-start-radius: 2px;
+  border-end-end-radius: 2px;
+}

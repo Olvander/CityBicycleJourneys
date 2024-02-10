@@ -1,0 +1,62 @@
+#stations {
+  height: fit-content;
+}
+
+#station-paginator {
+  width: fit-content;
+  margin: auto;
+}
+
+ul {
+  border-collapse: collapse;
+  margin: 0;
+}
+
+li {
+  background: linear-gradient(180deg,#005dde, #008eef);
+  min-width: 208px;
+  width: fit-content;
+  display: flex;
+  padding: 0px 10px 0px 10px;
+  margin: auto;
+}
+
+li:hover {
+  border: 1px solid #0033ff;
+  background: #0099ff !important;
+}
+
+a {
+  color: white;
+  width: 210px;
+  text-decoration: none;
+}
+
+h2 {
+  width: fit-content;
+}
+
+h2, ul {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+h2 {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  font-size: 18pt;
+}
+
+ul {
+  list-style: circle;
+  width: fit-content;
+  min-width: 210px;
+  padding-left: 0;
+  margin: auto;
+}
+
+li {
+  width: fit-content;
+  text-align: left;
+}

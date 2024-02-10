@@ -1,0 +1,6 @@
+h1, h2 {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+  margin-top: 48px;
+}

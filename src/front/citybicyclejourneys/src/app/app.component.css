@@ -1,0 +1,57 @@
+#appDiv {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: calc(100vh - 50px);
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 0px;
+}
+
+a {
+  margin-left: 12px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+a {
+  margin-top: 12px;
+  font-size: 18pt;
+  color: #555;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #222;
+}
+
+#footer {
+  display: flex;
+  position: relative;
+  height: 50px;
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  background-color: lightblue;
+}
+
+#license {
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: fit-content;
+  font-size: 12pt;
+  color: #0077aa;
+  margin: auto;
+  display: flex;
+  position: relative;
+  text-decoration: underline;
+}
+
+#license:hover {
+  color: #004479;
+}

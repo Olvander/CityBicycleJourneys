@@ -1,0 +1,242 @@
+#stationDiv {
+  margin-left: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 50vw;
+  width: fit-content;
+  min-height: 70vh;
+  height: fit-content;
+  background: linear-gradient(135deg, #aaaaaa, #ccc);
+  position: absolute;
+  top: 50px;
+  left: 25vw;
+  border-radius: 0px;
+  margin-bottom: 70px;
+}
+
+#stationNameDiv, #stationDataDiv {
+  margin-left: 0;
+  display: flex;
+  width: 50vw;
+  justify-content: center;
+}
+
+#noTop5Data {
+  color: white;
+}
+
+#monthMenu {
+  position: absolute !important;
+  top: 0;
+  left: calc(50vw - 140px) !important;
+}
+
+#stationDataDiv {
+  flex-direction: column;
+}
+
+#tableDiv {
+  border-radius: 0px;
+  background: linear-gradient(90deg,#3298e1, #008eef);
+  width: fit-content;
+  height: fit-content;
+  padding: 8px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  margin-left: 60px;
+  width: fit-content;
+  display: inline-block;
+}
+
+.dataReadyDiv {
+  width: 60px;
+}
+
+.btnAndSpinnerDiv {
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#tableAndSpinnerDiv {
+  margin: auto;
+  align-items: center;
+  display: flex;
+}
+
+.spinner {
+  margin-left: 20px;
+  display: flex;
+}
+
+#spinner2 {
+  margin-left: 0;
+}
+
+.btn {
+  display: flex;
+}
+
+::ng-deep .spinner circle {
+  stroke: #088ce4 !important;
+}
+
+::ng-deep .spinnerBelow circle {
+  stroke: #088ce4 !important;
+}
+
+h1 {
+  font-size: 17pt;
+  color: #444444;
+  margin-top: 30px;
+  margin-left: 0;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 15pt;
+  color: #444444;
+  margin-top: 10px;
+  margin: auto;
+}
+
+ul {
+  width: 50vw;
+  font-size: 11pt;
+  margin: 0px;
+  text-decoration: none;
+  margin: auto;
+}
+
+li {
+  width: 50vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: left;
+}
+
+.dataDiv {
+  display:flex;
+  flex-direction: column;
+  width: 280px;
+}
+
+button {
+  cursor: pointer;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: fit-content;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 35px;
+  background: linear-gradient(90deg,#3298e1, #008eef);
+  border-radius: 4px;
+  border: 1px solid gray;
+  color: white;
+}
+
+button:hover {
+  background: linear-gradient(90deg,#3298e1cc, #008eefcc);
+}
+
+#btnReturn:disabled, #btnDeparture:disabled {
+  background: linear-gradient(90deg,#3298e177, #008eef77);
+  cursor: default;
+}
+
+
+.top5StationsDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+  margin: auto;
+  margin-top: 8px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 8px;
+  background: linear-gradient(0deg,#3298e1, #008eef);
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 10pt;
+  cursor: pointer;
+  align-items: center;
+}
+
+a:hover {
+  color: #ccc;
+}
+
+.top5StationsDiv:nth-child(1) {
+  margin-left: 0;
+}
+
+.top5StationsInnerDiv {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  margin-top: 5px;
+}
+
+.listDiv {
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  justify-content: center;
+}
+
+td:nth-child(2) {
+  color: white;
+}
+
+table {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  border-collapse: collapse;
+}
+
+td {
+  font-size: 9pt;
+  color: white;
+}
+
+tr {
+  justify-content: center;
+}
+
+td:nth-child(1) {
+  width: 280px;
+}
+
+td:nth-child(2) {
+  width: fit-content;
+}
+
+p {
+  font-size: 10pt;
+  margin-top: 4px;
+  align-items: center;
+  margin-top: 0;
+}
+
+#returnStationp {
+  margin-left: auto;
+  width: fit-content;
+}
+
+.gray {
+  color: #444444;
+  font-weight: bold;
+  margin: auto;
+  margin-top: 4px;
+}

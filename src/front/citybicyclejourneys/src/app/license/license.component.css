@@ -1,0 +1,49 @@
+#license-outer {
+  height: calc(100vh - 150px);
+  position: relative;
+}
+
+#license-div {
+  margin-top: 11px;
+  height: fit-content;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 50vw;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 25vw;
+  background: linear-gradient(135deg, #aaaaaa, #ccc);
+}
+
+p, a, h2, h3 {
+  color: #555555;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 {
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+a {
+  color: #0077aa;
+}
+
+p {
+  margin-top: 10px;
+  color: #555555;
+  display: flex;
+  text-align: center;
+  width: fit-content;
+  max-width: 40vw;
+}
+
+#modifications {
+  margin-top: 5px;
+}
