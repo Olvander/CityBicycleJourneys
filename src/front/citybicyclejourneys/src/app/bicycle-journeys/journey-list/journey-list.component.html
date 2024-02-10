@@ -1,1 +1,104 @@
-<p>journey-list works!</p>
+<div id="journeys">
+  <div id="titleRow">
+    <h2 class="spinnerh2">{{title}}</h2>
+  
+    <mat-progress-spinner
+      *ngIf="displaySpinner"
+      id="spinner"
+      [mode]="spinnerMode"
+      [strokeWidth]="spinnerWidth"
+      [diameter]="spinnerDiameter">
+    </mat-progress-spinner>
+  
+    <month-selection-menu
+        id="monthMenu"
+        (selectedMonths)="monthSelected($event)"
+        *ngIf="fetchedJourneys"
+        [hidden]="displaySpinner">
+    </month-selection-menu>
+  
+    <div *ngIf="displaySpinner"
+         id="rightDiv">
+    </div>
+
+  </div>
+  <div *ngIf="this.fetchedJourneys">
+
+    <table id ="bicycleJourneysTable">
+      <tbody>
+        <tr>
+          <th id="th1"
+              (click)="sortBy('departure')">
+            Departure station&nbsp;
+            <div>
+              {{sortDirections[0]}}
+              <div *ngIf="sortedColumn !== 1">
+                {{sortDirectionsHover[0]}}
+              </div>
+            </div>
+          </th>
+          <th id="th2"
+              (click)="sortBy('return')">
+            Return station&nbsp;
+            <div>
+              {{sortDirections[1]}}
+              <div *ngIf="sortedColumn !== 2">
+                {{sortDirectionsHover[1]}}
+              </div>
+            </div>
+          </th>
+          <th id="th3"
+              (click)="sortBy('distance')">
+            Distance&nbsp;
+            <div>
+              {{sortDirections[2]}}
+              <div *ngIf="sortedColumn !== 3">
+                {{sortDirectionsHover[2]}}
+              </div>
+            </div>
+          </th>
+          <th id="th4"
+              (click)="sortBy('duration')">
+            Duration&nbsp;
+            <div>
+              {{sortDirections[3]}}
+              <div *ngIf="sortedColumn !== 4">
+                {{sortDirectionsHover[3]}}
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr *ngFor="let journey of bicycleJourneyResponse?.bicycleJourneys">
+          <td id="td1">
+              <a *ngIf="journey.departureStation !== undefined"
+                  routerLink="/stations/{{journey.departureStation!.id}}">
+                {{journey.departureStation!.name}}
+              </a>
+          </td>
+          <td id="td2">
+              <a *ngIf="journey.returnStation !== undefined"
+                  routerLink="/stations/{{journey.returnStation!.id}}">
+                {{journey.returnStation!.name}}
+              </a>
+          </td>
+          <td id="td3">{{this.getKilometers(journey.coveredDistance)}} km</td>
+          <td id="td4"><div id="minutesDiv">
+            {{this.getMinutes(journey.journeyDuration)}} min</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator
+        id="journey-paginator"
+        *ngIf="bicycleJourneyResponse !== undefined"
+        [pageIndex]="this.pageNo"
+        showFirstLastButtons="true"
+        [length]="bicycleJourneyResponse!.count"
+        [pageSize]="30"
+        [pageSizeOptions]="[30, 100, 1000]"
+        (page)="pgChg($event)">
+    </mat-paginator>
+
+  </div>
+</div>
