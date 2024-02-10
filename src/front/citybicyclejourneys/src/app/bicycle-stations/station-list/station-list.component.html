@@ -1,1 +1,20 @@
-<p>station-list works!</p>
+<div id="stations">
+  <h2>City Bicycle Stations</h2>
+  <div *ngIf="this.fetched">
+    <ul>
+      <li *ngFor="let station of stationResponse!.stations">
+        <a routerLink={{station.id}}>
+          {{station.name}}
+        </a>
+      </li>
+    </ul>
+    <mat-paginator
+      id="station-paginator"
+      *ngIf="stationResponse !== undefined"
+      [showFirstLastButtons]="true"
+      [length]="stationResponse!.count"
+      [pageSize]="25"
+      (page)="pgChg($event)">
+    </mat-paginator>
+  </div>
+</div>
